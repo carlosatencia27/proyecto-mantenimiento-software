@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba LogiFleet</title>
+</head>
+<body>
+    <h1>Prueba del Sistema LogiFleet</h1>
+    
+    <h2>Registrar Vehículo</h2>
+    <button onclick="probarRegistro()">Probar Registro</button>
+    
+    <h2>Buscar Vehículo</h2>
+    <button onclick="probarBusqueda()">Probar Búsqueda</button>
+    
+    <div id="resultado"></div>
+    
+    <!-- Cargar los módulos en orden -->
+    <script src="js/utilidades/validaciones.js"></script>
+    <script src="js/servicios/vehiculos.js"></script>
+    <script src="js/servicios/conductores.js"></script>
+    <script src="js/servicios/alertas.js"></script>
+    <script src="app.js"></script>
+    
+    <script>
+        function probarRegistro() {
+            const resultado = registrarVehiculo("ABC123", "Corolla", "Toyota", 2020);
+            if (resultado) {
+                document.getElementById('resultado').innerHTML = 
+                    '<p style="color: green;">✓ Vehículo registrado correctamente</p>' +
+                    '<pre>' + JSON.stringify(resultado, null, 2) + '</pre>';
+            }
+        }
+        
+        function probarBusqueda() {
+            const vehiculo = vehiculosService.buscar("ABC123");
+            if (vehiculo) {
+                document.getElementById('resultado').innerHTML = 
+                    '<p style="color: green;">✓ Vehículo encontrado</p>' +
+                    '<pre>' + JSON.stringify(vehiculo, null, 2) + '</pre>';
+            } else {
+                document.getElementById('resultado').innerHTML = 
+                    '<p style="color: red;">✗ Vehículo no encontrado</p>';
+            }
+        }
+    </script>
+</body>
+</html>
