@@ -1,23 +1,36 @@
-// Sistema LogiFleet - Gestión de Flotas
+// Sistema LogiFleet - Archivo Principal
 console.log("Sistema LogiFleet iniciado");
 
-let vehiculos = [];
-let conductores = [];
-
-function registrarVehiculo(placa, modelo, marca) {
-    const vehiculo = {
-        placa: placa,
-        modelo: modelo,
-        marca: marca,
-        activo: true
-    };
-    vehiculos.push(vehiculo);
-    console.log("Vehículo registrado:", vehiculo);
-    return vehiculo;
+// Cargar datos al iniciar
+function iniciarSistema() {
+    vehiculosService.cargarDeStorage();
+    conductoresService.cargarDeStorage();
+    console.log("Sistema cargado correctamente");
 }
 
-function obtenerVehiculos() {
-    return vehiculos;
+// Funciones globales para que el HTML las pueda llamar
+function registrarVehiculo(placa, modelo, marca, anio) {
+    const resultado = vehiculosService.registrar(placa, modelo, marca, anio);
+    if (resultado) {
+        alert("Vehículo registrado exitosamente");
+    }
+    return resultado;
 }
 
-console.log("Funciones básicas cargadas correctamente");
+function registrarConductor(cedula, nombre, licencia) {
+    const resultado = conductoresService.registrar(cedula, nombre, licencia);
+    if (resultado) {
+        alert("Conductor registrado exitosamente");
+    }
+    return resultado;
+}
+
+function asignarConductor(cedula, placa) {
+    const resultado = conductoresService.asignar(cedula, placa);
+    if (resultado) {
+        alert("Conductor asignado exitosamente");
+    }
+    return resultado;
+}
+
+iniciarSistema();
